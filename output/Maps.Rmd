@@ -1,0 +1,14 @@
+---
+title: "Maps"
+author: "Yanyu Zheng yz2690"
+date: "February 18, 2016"
+output: html_document
+---
+
+```{r}
+setwd("~/Data Science/project2-project2-group2/data")
+library(dplyr)
+library(ggmap)
+library(data.table)
+```
+

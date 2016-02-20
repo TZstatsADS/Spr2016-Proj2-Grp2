@@ -1,0 +1,11 @@
+# Predict the total travel time of taxi trips based on their initial partial trajectories
+
+This is the second of two data science challenges that share the same dataset. The Taxi Service Trajectory competition predicts the final destination of taxi trips. 
+
+
+
+To improve the efficiency of electronic taxi dispatching systems it is important to be able to predict how long a driver will have his taxi occupied. If a dispatcher knew approximately when a taxi driver would be ending their current ride, they would be better able to identify which driver to assign to each pickup request. 
+
+In this challenge, we ask you to build a predictive framework that is able to infer the trip time of taxi rides in Porto, Portugal based on their (initial) partial trajectories. The output of such a framework must be the travel time of a particular taxi trip.
+
+This competition is affiliated with the organization of ECML/PKDD 2015.

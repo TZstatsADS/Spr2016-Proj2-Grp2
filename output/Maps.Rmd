@@ -8,8 +8,10 @@ output: html_document
 ```{r}
 setwd("~/Data Science/project2-project2-group2/data")
 ## Libraries:
-x = c("shiny", "shinydashboard","dplyr","rgdal","leaflet","RColorBrewer","ggvis","DT")
-# install.packages(x)
+#x = c("shiny", "shinydashboard","dplyr","rgdal","leaflet","RColorBrewer","ggvis","DT")
+x = c(leaflet)
+install.packages(x)
 lapply(x,library,character.only = TRUE)
+load("miceData.RData")
 ```
 

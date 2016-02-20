@@ -7,8 +7,9 @@ output: html_document
 
 ```{r}
 setwd("~/Data Science/project2-project2-group2/data")
-library(dplyr)
-library(ggmap)
-library(data.table)
+## Libraries:
+x = c("shiny", "shinydashboard","dplyr","rgdal","leaflet","RColorBrewer","ggvis","DT")
+# install.packages(x)
+lapply(x,library,character.only = TRUE)
 ```
 

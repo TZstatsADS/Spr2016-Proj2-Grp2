@@ -36,6 +36,8 @@ source("../lib/drawMap.R")
 samp = sample_n(miceData,7000)
 mSamp = drawMap(samp)
 mSamp
+mSampCluster = drawMapCluster(samp)
+mSampCluster
 ```
 # Top Five mice area
 ```{r}
@@ -56,6 +58,10 @@ filtData = miceData %>%
   filter(Zip %in% zipToKeep) %>%
   filter(Date >= timeRange[1] & Date <= timeRange[2])
 mFiltData = drawMap(filtData) 
+```
+# Mice by season
+```{r}
+
 ```
 
 

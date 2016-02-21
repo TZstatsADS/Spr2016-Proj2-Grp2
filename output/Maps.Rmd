@@ -4,14 +4,58 @@ author: "Yanyu Zheng yz2690"
 date: "February 18, 2016"
 output: html_document
 ---
-
+# Data Cleaning & Basic Setup
 ```{r}
 setwd("~/Data Science/project2-project2-group2/data")
-## Libraries:
-#x = c("shiny", "shinydashboard","dplyr","rgdal","leaflet","RColorBrewer","ggvis","DT")
-x = c(leaflet)
-install.packages(x)
+x = c("leaflet","dplyr","data.table")
+#install.packages(x)
 lapply(x,library,character.only = TRUE)
-load("miceData.RData")
+setwd("~/Data Science/project2-project2-group2/data")
+colsToKeep = c("Created Date","Incident Zip","Latitude","Longitude")
+miceData = fread("Rat_Sightings.csv",select = colsToKeep)
+colnames(miceData) = c("Date","Zip","Latitude","Longitude")
+miceData = miceData %>% 
+  na.omit() %>%
+  mutate(Date = as.Date(Date,"%m/%d/%Y"), Zip = as.numeric(Zip))
+save(miceData, file = "miceData.RData") 
+rm(miceData)
 ```
+# Basic set up
+```{r}
+load("miceData.RData")
+source("../lib/drawMap.R")
+#'
+#'@Date Created Date of the incident report
+#'@Zip  Zip code of incident
+#'@Latitude    Latitude of incident
+#'@Longitude   Longitude coordinate of incident
+#'
+```
+# Basic mice distribution
+```{r}
+samp = sample_n(miceData,7000)
+mSamp = drawMap(samp)
+mSamp
+```
+# Top Five mice area
+```{r}
+topFive = miceData %>%
+  group_by(Zip) %>%
+  summarise(miceNum = n()) %>%
+  arrange(desc(miceNum))
+topFiveData = miceData %>%
+  filter(Zip %in% topFive$Zip[1:5])
+mTopFive = drawMap(topFiveData)
+mTopFive
+```
+# Mice by zip code & time
+```{r}
+zipToKeep = c(10027,10026,10025)
+timeRange = c("2015-12-25","2016-02-14")
+filtData = miceData %>%
+  filter(Zip %in% zipToKeep) %>%
+  filter(Date >= timeRange[1] & Date <= timeRange[2])
+mFiltData = drawMap(filtData) 
+```
+
 

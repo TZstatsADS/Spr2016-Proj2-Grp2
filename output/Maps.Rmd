@@ -6,11 +6,14 @@ output: html_document
 ---
 # Data Cleaning & Basic Setup
 ```{r}
+# Set working directory
 setwd("~/Data Science/project2-project2-group2/data")
-x = c("leaflet","dplyr","data.table")
+x = c("leaflet","dplyr","data.table","XML")
+
 #install.packages(x)
 lapply(x,library,character.only = TRUE)
-setwd("~/Data Science/project2-project2-group2/data")
+
+## Data cleaning for mice data
 colsToKeep = c("Created Date","Incident Zip","Latitude","Longitude")
 miceData = fread("Rat_Sightings.csv",select = colsToKeep)
 colnames(miceData) = c("Date","Zip","Latitude","Longitude")
@@ -19,6 +22,14 @@ miceData = miceData %>%
   mutate(Date = as.Date(Date,"%m/%d/%Y"), Zip = as.numeric(Zip))
 save(miceData, file = "miceData.RData") 
 rm(miceData)
+
+## Data cleaning for retaurant data
+colsToKeep = c("DBA","STREET","BORO","CUISINE DESCRIPTION","ZIPCODE","SCORE")
+resData = fread("restaurants.csv",select = colsToKeep)
+resData = resData %>%
+  na.omit() %>%
+  mutate(addr = paste(DBA, STREET, BORO, sep = ","))
+
 ```
 # Basic set up
 ```{r}

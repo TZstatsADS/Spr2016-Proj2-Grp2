@@ -21,7 +21,8 @@ miceData = fread("Rat_Sightings.csv",select = colsToKeep)
 colnames(miceData) = c("Date","Zip","Latitude","Longitude")
 miceData = miceData %>% 
   na.omit() %>%
-  mutate(Date = as.Date(Date,"%m/%d/%Y"), Zip = as.numeric(Zip))
+  mutate(Date = as.Date(Date,"%m/%d/%Y"), Zip = as.numeric(Zip)) %>%
+  mutate(Year = format(Date,"%Y"))
 save(miceData, file = "miceData.RData") 
 rm(miceData)
 

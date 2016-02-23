@@ -27,13 +27,12 @@ rm(miceData)
 
 ## Data cleaning for retaurant data
 colsToKeep = c("DBA","STREET","BORO","CUISINE DESCRIPTION","ZIPCODE","SCORE")
-resData = fread("restaurant.csv",select = colsToKeep)
-resDataColumbia = resData %>%
+resData = fread("~/Downloads/restaurant.csv",select = colsToKeep)
+resData = resData %>%
   na.omit() %>%
   mutate(addr = paste(DBA, STREET, BORO, sep = ",")) %>%
-  unique(by = "DBA") %>%
-  filter(ZIPCODE >= 10024 & ZIPCODE <=10028)
-save(resDataColumbia, file = "miceDataColumbia.RData")
+  unique(by = "DBA")
+save(resData, file = "resData.RData")
 gps = lapply(resDataColumbia$addr,getGps)
 gps = do.call(rbind,gps)
 for(i in 1:nrow(data)){

@@ -58,11 +58,11 @@ load("miceData.RData")
 ```
 # Basic mice distribution
 ```{r}
-samp = sample_n(miceData,7000)
+samp = sample_n(miceData,100)
 mSamp = drawMap(samp)
 mSamp
-mSampCluster = drawMapCluster(samp)
-mSampCluster
+mSampFood = drawMapFood(samp)
+mSampFood
 ```
 # Top Five mice area
 ```{r}

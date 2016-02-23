@@ -6,10 +6,12 @@ output: html_document
 ---
 # Data Cleaning & Basic Setup
 ```{r}
-# Set working directory
+# Set working directory & Load in functions
 setwd("~/Data Science/project2-project2-group2/data")
 x = c("leaflet","dplyr","data.table","XML")
-
+source("../lib/drawMap.R")
+source("../lib/getGps.R")
+source("../lib/getDataGps.R")
 #install.packages(x)
 lapply(x,library,character.only = TRUE)
 
@@ -25,16 +27,28 @@ rm(miceData)
 
 ## Data cleaning for retaurant data
 colsToKeep = c("DBA","STREET","BORO","CUISINE DESCRIPTION","ZIPCODE","SCORE")
-resData = fread("restaurants.csv",select = colsToKeep)
-resData = resData %>%
+resData = fread("restaurant.csv",select = colsToKeep)
+resDataColumbia = resData %>%
   na.omit() %>%
-  mutate(addr = paste(DBA, STREET, BORO, sep = ","))
-
+  mutate(addr = paste(DBA, STREET, BORO, sep = ",")) %>%
+  unique(by = "DBA") %>%
+  filter(ZIPCODE >= 10024 & ZIPCODE <=10028)
+save(resDataColumbia, file = "miceDataColumbia.RData")
+gps = lapply(resDataColumbia$addr,getGps)
+gps = do.call(rbind,gps)
+for(i in 1:nrow(data)){
+  gps = getGps(resData[i,addr])
+  Longtitude = c(Longtitude,gps[1])
+  Latitude = c(Latitude,gps[2])
+}
+#19866
+resData = cbind(resData,Longtitude,Latitude)
 ```
 # Basic set up
 ```{r}
+setwd("~/Data Science/project2-project2-group2/data")
 load("miceData.RData")
-source("../lib/drawMap.R")
+
 #'
 #'@Date Created Date of the incident report
 #'@Zip  Zip code of incident
@@ -52,8 +66,9 @@ mSampCluster
 ```
 # Top Five mice area
 ```{r}
-topFive = miceData %>%
+topTen = miceData %>%
   group_by(Zip) %>%
+  filter("2010-01-01"<=Date & "2011-01-01">=Date) %>%
   summarise(miceNum = n()) %>%
   arrange(desc(miceNum))
 topFiveData = miceData %>%

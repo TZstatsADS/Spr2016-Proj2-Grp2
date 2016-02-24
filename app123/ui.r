@@ -1,13 +1,21 @@
-
+library(leaflet)
+library(dplyr)
 library(shiny)
 library(shinydashboard)
 library(ggvis)
 library(ggplot2)
-x = c("leaflet","dplyr","data.table")
-lapply(x,library,character.only = TRUE)
-setwd("~/Documents/stat4249/project2-project2-group2/data")
+library(chron)
+library(reshape2)
+setwd("~/Documents/stat4249/project2-project2-group2/app123")
+#x = c("leaflet","dplyr")
+#lapply(x,library,character.only = TRUE)
+#setwd("~/Documents/stat4249/project2-project2-group2/data")
+#miceData <- readRDS(file="miceData.RData")
 load("miceData.RData")
-load("zrating.RData")
+load("zrating.Rdata")
+load("resColumbia.RData")
+
+#zip.rating<-readRDS("zrating.RData")
 source("../lib/drawMap.R")
 
 header<-dashboardHeader(title = "Rats in New York",
@@ -133,6 +141,7 @@ body<-dashboardBody(
                                           choices = list("Ranking" = 0, 
                                                          "Number of rats" = 1),
                                           selected = 0),
+                             
                              plotOutput("plot.c")
                              )
                           ),
@@ -149,6 +158,9 @@ body<-dashboardBody(
                                                 choices = list("Ranking" = 0, 
                                                                "Number of rats" = 1),
                                                 selected = 0),
+                                   selectInput("year.p", p("Year:"), 
+                                               choices = list("2010" = 2010, "2011" = 2011,
+                                                              "2012" = 2012,"2013"=2013,"2014"=2014,"2015"=2015), selected = 2015),
                                    plotOutput("plot.p")
                                  )
                                  
@@ -156,8 +168,11 @@ body<-dashboardBody(
                                   )
                                                  
              ))
-     )
-      
+     ),
+    tabItem (
+      tabName="restaurants",
+      leafletOutput("mapfood", height = 800)
+    )
     ,
     tabItem(
       tabName="map",

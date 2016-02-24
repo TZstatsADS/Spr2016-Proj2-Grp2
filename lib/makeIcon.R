@@ -1,4 +1,4 @@
-size = 8
+size = 10
   
   icon1 <- makeIcon(
     iconUrl = "Hamburger.gif",

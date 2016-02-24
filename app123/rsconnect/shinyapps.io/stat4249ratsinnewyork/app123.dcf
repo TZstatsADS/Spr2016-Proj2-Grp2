@@ -2,8 +2,8 @@ name: app123
 account: stat4249ratsinnewyork
 server: shinyapps.io
 appId: 85090
-bundleId: 379725
+bundleId: 379728
 url: https://stat4249ratsinnewyork.shinyapps.io/app123/
-when: 1456350283.57494
+when: 1456350440.49842
 asMultiple: FALSE
 asStatic: FALSE

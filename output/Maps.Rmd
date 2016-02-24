@@ -33,20 +33,36 @@ resData = fread("~/Downloads/restaurant.csv",select = colsToKeep)
 resData = resData %>%
   na.omit() %>%
   mutate(addr = paste(DBA, STREET, BORO, sep = ","),ZIPCODE = as.numeric(ZIPCODE)) %>%
-  unique(by = "DBA")
+  unique(by = "DBA") 
+  
+resColumbia = filter(resData, 10024<=ZIPCODE & 10028>=ZIPCODE)
+
 save(resData, file = "resData.RData")
 
 
 
-gps = lapply(resDataColumbia$addr,getGps)
-gps = do.call(rbind,gps)
-for(i in 1:nrow(data)){
-  gps = getGps(resData[i,addr])
-  Longtitude = c(Longtitude,gps[1])
-  Latitude = c(Latitude,gps[2])
-}
+#gps = lapply(resColumbia$addr,getGps)
+#GPS = do.call(rbind,gps)
+
+GPS = matrix(as.numeric(GPS),ncol=2)
+colnames(GPS) = c("Latitude","Longitude")
+resColumbia = cbind(resColumbia,GPS)
+
+resColumbia = resColumbia %>%
+  na.omit() %>%
+  filter(Latitude<=40.9 & Latitude>=40.5) %>%
+  filter(Longitude>=-74 & Longitude <= -73.8)
+
+idx = 1:nrow(resColumbia)
+resColumbia = cbind(resColumbia,idx)
+
+#resColumbia = resColumbia[1:584,]
+colnames(resColumbia) = c("DBA","BORO","STREET","ZIPCODE"             ,"CUISINE DESCRIPTION", "SCORE","addr","Longitude","Latitude")
+save(resColumbia,file="resColumbia.RData")
+
+save(GPS,file="columbiaGPS.RData")
 #19866
-resData = cbind(resData,Longtitude,Latitude)
+
 ```
 # Basic set up
 ```{r}
@@ -94,6 +110,10 @@ mFiltData = drawMap(filtData)
 play = resData %>%
   group_by("CUISINE DESCRIPTION") %>%
   summarise(n = n())
+```
+
+```{r}
+
 ```
 
 # Icons

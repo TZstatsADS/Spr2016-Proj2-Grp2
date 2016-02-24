@@ -10,7 +10,7 @@ x = c("leaflet","dplyr","data.table","XML")
 lapply(x,library,character.only = TRUE)
 source("../lib/getGps.R")
 load("resData.Rdata")
-Data = resData[n:(n+2499),]
+Data = resData[((n-1)*2500+1):n*2500,]
 gps = lapply(Data$addr,getGps)
 gps = do.call(rbind,gps)
 save(gps,file = fileName)

@@ -22,7 +22,7 @@ colnames(miceData) = c("Date","Zip","Latitude","Longitude")
 miceData = miceData %>% 
   na.omit() %>%
   mutate(Date = as.Date(Date,"%m/%d/%Y"), Zip = as.numeric(Zip)) %>%
-  mutate(Year = format(Date,"%Y"),Month = format(Date,"%m")) 
+  mutate(Year = format(Date,"%Y"),Month = paste(format(Date,"%Y"),format(Date,"%m"),sep="")) 
 save(miceData, file = "miceData.RData") 
 
 

@@ -4,17 +4,12 @@ library(shiny)
 library(shinydashboard)
 library(ggvis)
 library(ggplot2)
-library(chron)
 
-#x = c("leaflet","dplyr")
-#lapply(x,library,character.only = TRUE)
-setwd("~/Documents/stat4249/project2-project2-group2/data")
+
 load("miceData.RData")
 load("zrating.RData")
 load("resColumbia.RData")
-source("../lib/drawMap.R")
 size = 10
-
 icon1 <- makeIcon(
   iconUrl = "Hamburger.gif",
   iconWidth = size, iconHeight = size
@@ -288,14 +283,6 @@ shinyServer<-function(input,output,session) {
       geom_line() 
     print(x)
   })
-  
 
-  
-  'output$rankimage<-renderImage({
-    src="rat_welcome.png" 
-    height = 20
-    width = 20
-  })'
-  
   
 }

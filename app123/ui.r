@@ -4,19 +4,13 @@ library(shiny)
 library(shinydashboard)
 library(ggvis)
 library(ggplot2)
-library(chron)
 library(reshape2)
-#setwd("~/Documents/stat4249/project2-project2-group2/app123")
-#x = c("leaflet","dplyr")
-#lapply(x,library,character.only = TRUE)
-#setwd("~/Documents/stat4249/project2-project2-group2/data")
-#miceData <- readRDS(file="miceData.RData")
+
 load("miceData.RData")
-load("zrating.Rdata")
+load("zrating.RData")
 load("resColumbia.RData")
 
-#zip.rating<-readRDS("zrating.RData")
-source("../lib/drawMap.R")
+
 
 header<-dashboardHeader(title = "Rats in New York",
                   dropdownMenu(type = "messages",
@@ -209,17 +203,6 @@ body<-dashboardBody(
       )
     )
     
-
-
-
-
-
-
-
-
-
-
-
 
 shingUI<-dashboardPage(skin="black",header,sidebar,body)
 

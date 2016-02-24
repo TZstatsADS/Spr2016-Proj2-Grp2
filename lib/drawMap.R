@@ -4,6 +4,6 @@
 drawMap = function(data){
   m = leaflet(data)%>%
     addProviderTiles("CartoDB.DarkMatter")%>%
-    addCircleMarkers(~Longitude, ~Latitude,radius = 3, stroke = FALSE,col = "yellow", popup = ~Date)
+    addCircleMarkers(~Longitude, ~Latitude,radius = 3, stroke = FALSE,col = "yellow", popup = ~pop)
   return(m)
 }

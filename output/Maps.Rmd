@@ -16,13 +16,14 @@ source("../lib/getDataGps.R")
 lapply(x,library,character.only = TRUE)
 
 ## Data cleaning for mice data
-colsToKeep = c("Created Date","Incident Zip","Latitude","Longitude")
+colsToKeep = c("Created Date","Incident Zip","Incident Address","Latitude","Longitude")
 miceData = fread("Rat_Sightings.csv",select = colsToKeep)
-colnames(miceData) = c("Date","Zip","Latitude","Longitude")
+colnames(miceData) = c("Date","Zip","Address","Latitude","Longitude")
 miceData = miceData %>% 
   na.omit() %>%
   mutate(Date = as.Date(Date,"%m/%d/%Y"), Zip = as.numeric(Zip)) %>%
-  mutate(Year = format(Date,"%Y"),Month = paste(format(Date,"%Y"),format(Date,"%m"),sep="")) 
+  mutate(Year = format(Date,"%Y"),Month = paste(format(Date,"%Y"),format(Date,"%m"),sep="")) %>%
+  mutate(pop = paste(Date,Address,sep = "<br/>"))
 save(miceData, file = "miceData.RData") 
 
 
@@ -94,5 +95,37 @@ play = resData %>%
   group_by("CUISINE DESCRIPTION") %>%
   summarise(n = n())
 ```
+
+# Icons
+Asian 
+                                                              11 
+                                                   Pizza/Italian 
+                                                              11 
+                                                            Thai 
+                                                              11 
+                                                          Bakery 
+                                                              12 
+                                                   Jewish/Kosher 
+                                                              15 
+                                                         Mexican 
+                                                              17 
+                                                          French 
+                                                              21 
+                                                          Indian 
+                                                              23 
+                                                           Pizza 
+                                                              23 
+                                                         Chinese 
+                                                              34 
+                                                 Café/Coffee/Tea 
+                                                              36 
+                                                        Japanese 
+                                                              36 
+                                                         Italian 
+                                                              50 
+
+
+
+
 
 

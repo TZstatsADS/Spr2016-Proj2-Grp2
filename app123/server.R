@@ -12,7 +12,7 @@ setwd("~/Documents/stat4249/project2-project2-group2/data")
 load("miceData.RData")
 load("zrating.RData")
 load("resColumbia.RData")
-#source("../lib/drawMap.R")
+source("../lib/drawMap.R")
 size = 10
 
 icon1 <- makeIcon(

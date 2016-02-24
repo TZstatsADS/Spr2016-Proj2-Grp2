@@ -6,7 +6,7 @@ library(ggvis)
 library(ggplot2)
 library(chron)
 library(reshape2)
-setwd("~/Documents/stat4249/project2-project2-group2/app123")
+#setwd("~/Documents/stat4249/project2-project2-group2/app123")
 #x = c("leaflet","dplyr")
 #lapply(x,library,character.only = TRUE)
 #setwd("~/Documents/stat4249/project2-project2-group2/data")
@@ -133,8 +133,8 @@ body<-dashboardBody(
                                        value = "10010"),
                               radioButtons("zipcode.compare", 
                                               label = p("Chose the rank type"), 
-                                              choices = list("With penalty term" = 1, 
-                                                             "Without penality term" = 0),
+                                              choices = list("Weighted" = 1, 
+                                                             "Unweighted" = 0),
                                               selected = 1),
                              radioButtons("ranking.compare", 
                                           label = p("Chose the outcome type"), 
@@ -150,8 +150,8 @@ body<-dashboardBody(
                                    title="General Ranking",status="success",solidHeader=TRUE,collapsible = TRUE,width = NULL,
                                    radioButtons("zipcode.compare.g", 
                                                 label = p("Chose the rank type"), 
-                                                choices = list("With penalty term" = 1, 
-                                                               "Without penality term" = 0),
+                                                choices = list("Weighted" = 1, 
+                                                               "Unweighted" = 0),
                                                 selected = 1),
                                    radioButtons("ranking.g", 
                                                 label = p("Chose the outcome type"), 
@@ -190,7 +190,7 @@ body<-dashboardBody(
                box(width = NULL, 
                    dateRangeInput("Date range", inputId = "timeRange",  
                                   start = "2010-01-01",
-                                  end = "2016-02-14",
+                                  end = "2015-12-31",
                                 format = "yyyy-mm-dd")),
                tabBox(width = NULL,
                       tabPanel("Days",

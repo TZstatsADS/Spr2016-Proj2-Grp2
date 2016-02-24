@@ -14,7 +14,7 @@ lines(lowess(table(miceData$Date[miceData$Date<y&miceData$Date>x])),type = "b", 
 
 #ggvis plot
 miceData %>%
-  ggvis(~Date[Date<y&Date>x]) %>%
+  ggvis(~Date[Date<y&Date>x],fill := "red") %>%
   layer_histograms(width = input_numeric(label="Width",value=1)) %>%
   add_axis("x", title = "Date") %>%
   add_axis("y", title = "Mice Number")

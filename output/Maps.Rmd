@@ -22,18 +22,21 @@ colnames(miceData) = c("Date","Zip","Latitude","Longitude")
 miceData = miceData %>% 
   na.omit() %>%
   mutate(Date = as.Date(Date,"%m/%d/%Y"), Zip = as.numeric(Zip)) %>%
-  mutate(Year = format(Date,"%Y"))
+  mutate(Year = format(Date,"%Y"),Month = format(Date,"%m")) 
 save(miceData, file = "miceData.RData") 
-rm(miceData)
+
 
 ## Data cleaning for retaurant data
 colsToKeep = c("DBA","STREET","BORO","CUISINE DESCRIPTION","ZIPCODE","SCORE")
 resData = fread("~/Downloads/restaurant.csv",select = colsToKeep)
 resData = resData %>%
   na.omit() %>%
-  mutate(addr = paste(DBA, STREET, BORO, sep = ",")) %>%
+  mutate(addr = paste(DBA, STREET, BORO, sep = ","),ZIPCODE = as.numeric(ZIPCODE)) %>%
   unique(by = "DBA")
 save(resData, file = "resData.RData")
+
+
+
 gps = lapply(resDataColumbia$addr,getGps)
 gps = do.call(rbind,gps)
 for(i in 1:nrow(data)){
@@ -87,7 +90,9 @@ mFiltData = drawMap(filtData)
 ```
 # Mice by season
 ```{r}
-
+play = resData %>%
+  group_by("CUISINE DESCRIPTION") %>%
+  summarise(n = n())
 ```
 
 

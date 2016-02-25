@@ -4,7 +4,7 @@ library(shiny)
 library(shinydashboard)
 library(ggvis)
 library(ggplot2)
-
+library(data.table)
 
 load("miceData.RData")
 load("zrating.RData")
@@ -14,7 +14,7 @@ icon1 <- makeIcon(
   iconUrl = "Hamburger.gif",
   iconWidth = size, iconHeight = size
 )
-shinyServer<-function(input,output,session) {
+shinyServer(function(input,output,session) {
   
   data <-reactive({miceData #%>%
     #filter(Zip %in% input$text) %>%
@@ -285,4 +285,4 @@ shinyServer<-function(input,output,session) {
   })
 
   
-}
+})

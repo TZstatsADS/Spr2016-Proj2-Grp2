@@ -6,20 +6,16 @@ library(ggvis)
 library(ggplot2)
 library(reshape2)
 
-load("miceData.RData")
-load("zrating.RData")
-load("resColumbia.RData")
 
-
-
-header<-dashboardHeader(title = "Rats in New York",
+shinyUI(dashboardPage(skin="black",
+dashboardHeader(title = "Rats in New York",
                   dropdownMenu(type = "messages",
                                messageItem(
                                  from = "Support",
                                  message = "Welcome to RatsinNewYork!"
                                )
-                  ))
-sidebar<-dashboardSidebar(
+                  )),
+dashboardSidebar(
         sidebarMenu(
           menuItem("Overview", tabName = "overview", icon = icon("sitemap")),
           menuItem("Map of rats", icon = icon("map-marker"), tabName = "map"),
@@ -32,9 +28,9 @@ sidebar<-dashboardSidebar(
           menuItem("About us", tabName = "about", icon = icon("reddit-alien"))
           
           
-        ))
+        )),
 
-body<-dashboardBody(
+dashboardBody(
   tags$head(tags$link(rel = "icon", type = "image/png", href = "favicon.png"),
             tags$title("Rats in New York")),
   
@@ -202,8 +198,5 @@ body<-dashboardBody(
       ))
       )
     )
-    
-
-shingUI<-dashboardPage(skin="black",header,sidebar,body)
-
-
+ )   
+)
